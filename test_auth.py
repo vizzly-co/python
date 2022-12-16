@@ -36,5 +36,34 @@ class TestAuth(unittest.TestCase):
         assert decoded["organisationId"] == "org_123"
         assert decoded["dashboardId"] == "dsh_432"
         assert decoded["userReference"] == "usr-123"
+        assert "expires" in decoded
 
+  def test_sign_data_access_token(self):
+    with open('private_key.pem', 'r') as f:
+      private_key = f.read()
+      token = auth.sign_data_access_token(
+        expiry_ttl_in_minutes=20,
+        data_set_ids="*",
+        secure_filters={
+          "das_1": [{
+            "field": "fie_1",
+            "op": "=",
+            "value": "usr_12345"
+          }]
+        },
+        private_key=private_key
+      )
+
+      with open('public_key.pem', 'r') as f:
+        public_key = f.read()
+        decoded = jwt.decode(token, public_key, algorithms=['ES256'])
+
+        assert decoded["dataSetIds"] == "*"
+        assert decoded["secureFilters"] == {
+          "das_1": [{
+            "field": "fie_1",
+            "op": "=",
+            "value": "usr_12345"
+          }]
+        }
         assert "expires" in decoded
