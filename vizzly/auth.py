@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 
 def sign(payload, expiry_ttl_in_minutes, private_key):
   now = datetime.today()
-  
+
   payload["expires"] = (now + timedelta(expiry_ttl_in_minutes)).isoformat()
   return jwt.encode(payload, private_key, algorithm='ES256')
 

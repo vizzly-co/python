@@ -11,6 +11,7 @@ pip3 install git+https://github.com/vizzly-co/python.git#egg=vizzly
 ```python3
 import vizzly
 
+# Generated with https://docs.vizzly.co/security
 private_key = """
 -----BEGIN EC PRIVATE KEY-----
 MHcCAQEEIMd64JFtp7nbYIsws03dy6fBirhpio4aLwPdW/6Xg1WRoAoGCCqGSM49
