@@ -1,5 +1,5 @@
 import unittest
-import auth
+import vizzly_auth
 import jwt
 from unittest import mock
 
@@ -7,7 +7,7 @@ class TestAuth(unittest.TestCase):
   def test_sign(self):
     with open('private_key.pem', 'r') as f:
       private_key = f.read()
-      token = auth.sign({"foo": "bar"}, 60, private_key)
+      token = vizzly_auth.sign({"foo": "bar"}, 60, private_key)
 
       with open('public_key.pem', 'r') as f:
         public_key = f.read()
@@ -19,7 +19,7 @@ class TestAuth(unittest.TestCase):
   def test_sign_dashboard_access_token(self):
     with open('private_key.pem', 'r') as f:
       private_key = f.read()
-      token = auth.sign_dashboard_access_token(
+      token = vizzly_auth.sign_dashboard_access_token(
         expiry_ttl_in_minutes=20,
         access_type='editor',
         organisation_id='org_123',
@@ -41,7 +41,7 @@ class TestAuth(unittest.TestCase):
   def test_sign_data_access_token(self):
     with open('private_key.pem', 'r') as f:
       private_key = f.read()
-      token = auth.sign_data_access_token(
+      token = vizzly_auth.sign_data_access_token(
         expiry_ttl_in_minutes=20,
         data_set_ids="*",
         secure_filters={
