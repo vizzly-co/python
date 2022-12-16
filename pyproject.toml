@@ -7,7 +7,7 @@ readme = "README.md"
 packages = [{include = "auth.py"}]
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.10"
 PyJWT = "^2.6.0"
 cryptography = "^38.0.4"
 
