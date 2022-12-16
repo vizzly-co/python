@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Sign dashboard and data access tokens for vizzly.co"
 authors = ["James Bowers <james@vizzly.co>"]
 readme = "README.md"
-packages = [{include = "vizzly_auth"}]
+packages = [{include = "vizzly"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"

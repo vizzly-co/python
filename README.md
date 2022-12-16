@@ -4,7 +4,7 @@ Python library to generate dashboard and data access tokens used for vizzly.co.
 
 ## Installation
 ```sh
-pip install git+https://github.com/vizzly-co/auth-python3.git#egg=vizzly_auth
+pip install git+https://github.com/vizzly-co/auth-python3.git#egg=vizzly
 ```
 
 ## Usage

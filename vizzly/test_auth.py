@@ -1,5 +1,5 @@
 import unittest
-import vizzly_auth.auth as auth
+import vizzly.auth as auth
 import jwt
 from unittest import mock
 
