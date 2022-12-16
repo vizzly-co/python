@@ -1,10 +1,17 @@
-[project]
+[tool.poetry]
 name = "vizzly-auth"
 version = "0.1.0"
-description = ""
-authors = [
-    { name = "James Bowers", email = "james@vizzly.co" }
-]
-packages = [
-    { include = "auth.py" }
-]
+description = "Sign dashboard and data access tokens for vizzly.co"
+authors = ["James Bowers <james@vizzly.co>"]
+readme = "README.md"
+packages = [{include = "auth.py"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+PyJWT = "^2.6.0"
+cryptography = "^38.0.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
