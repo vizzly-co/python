@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "vizzly-auth"
+name = "vizzly"
 version = "0.1.0"
 description = "Sign dashboard and data access tokens for vizzly.co"
 authors = ["James Bowers <james@vizzly.co>"]
