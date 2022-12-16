@@ -1,4 +1,4 @@
-# Vizzly python auth
+# Vizzly Python library
 
 Python library to generate dashboard and data access tokens used for vizzly.co.
 
