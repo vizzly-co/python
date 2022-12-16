@@ -1,0 +1,5 @@
+[tool.poetry]
+name = "vizzly-auth"
+version = "0.1.0"
+description = ""
+authors = ["James Bowers <james@vizzly.co>"]
