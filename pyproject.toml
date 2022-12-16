@@ -3,10 +3,7 @@ name = "vizzly-auth"
 version = "0.1.0"
 description = ""
 authors = [
-  {
-    "name": "James Bowers",
-    "email": "james@vizzly.co"
-  },
+    { name = "James Bowers", email = "james@vizzly.co" }
 ]
 packages = [
     { include = "auth.py" }
