@@ -26,6 +26,7 @@ dashboard_access_token = vizzly.sign_dashboard_access_token(
   organisation_id='org_123',
   dashboard_id='dsh_123',
   user_reference='usr-1',
+  scope='read_write',
   private_key=private_key
 )
 
