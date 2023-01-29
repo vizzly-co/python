@@ -25,6 +25,7 @@ class TestAuth(unittest.TestCase):
         organisation_id='org_123',
         user_reference='usr-123',
         dashboard_id='dsh_432',
+        scope="read",
         private_key=private_key
       )
 
@@ -36,6 +37,7 @@ class TestAuth(unittest.TestCase):
         assert decoded["organisationId"] == "org_123"
         assert decoded["dashboardId"] == "dsh_432"
         assert decoded["userReference"] == "usr-123"
+        assert decoded["scope"] == "read"
         assert "expires" in decoded
 
   def test_sign_data_access_token(self):
