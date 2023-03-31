@@ -21,7 +21,7 @@ class TestAuth(unittest.TestCase):
       private_key = f.read()
       token = auth.sign_dashboard_access_token(
         expiry_ttl_in_minutes=20,
-        access_type='editor',
+        access_type='admin',
         organisation_id='org_123',
         user_reference='usr-123',
         dashboard_id='dsh_432',
@@ -33,7 +33,7 @@ class TestAuth(unittest.TestCase):
         public_key = f.read()
         decoded = jwt.decode(token, public_key, algorithms=['ES256'])
 
-        assert decoded["accessType"] == "editor"
+        assert decoded["accessType"] == "admin"
         assert decoded["organisationId"] == "org_123"
         assert decoded["dashboardId"] == "dsh_432"
         assert decoded["userReference"] == "usr-123"
