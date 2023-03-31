@@ -22,7 +22,7 @@ c8XAMURwSA7iAY2QzmzJ4RQ6ZKp1UVkpLA==
 
 dashboard_access_token = vizzly.sign_dashboard_access_token(
   expiry_ttl_in_minutes=60,
-  access_type='editor',
+  access_type='admin',
   organisation_id='org_123',
   dashboard_id='dsh_123',
   user_reference='usr-1',
