@@ -1,6 +1,7 @@
 import jwt
 from datetime import datetime, timedelta
 from dateutil import tz
+from datetime import timezone
 
 def sign(payload, expiry_ttl_in_minutes, private_key, timezone):
   now = datetime.now(timezone)
