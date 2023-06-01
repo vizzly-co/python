@@ -2,12 +2,13 @@ import unittest
 import vizzly.auth as auth
 import jwt
 from unittest import mock
+from datetime import timezone
 
 class TestAuth(unittest.TestCase):
   def test_sign(self):
     with open('private_key.pem', 'r') as f:
       private_key = f.read()
-      token = auth.sign({"foo": "bar"}, 60, private_key)
+      token = auth.sign({"foo": "bar"}, 60, private_key, timezone.utc)
 
       with open('public_key.pem', 'r') as f:
         public_key = f.read()
@@ -15,6 +16,7 @@ class TestAuth(unittest.TestCase):
 
         assert decoded["foo"] == "bar"
         assert "expires" in decoded
+        assert decoded['expires'].endswith("+00:00")
 
   def test_sign_dashboard_access_token(self):
     with open('private_key.pem', 'r') as f:
@@ -39,6 +41,7 @@ class TestAuth(unittest.TestCase):
         assert decoded["userReference"] == "usr-123"
         assert decoded["scope"] == "read"
         assert "expires" in decoded
+        assert "+" in decoded['expires']
 
   def test_sign_data_access_token(self):
     with open('private_key.pem', 'r') as f:
@@ -69,3 +72,4 @@ class TestAuth(unittest.TestCase):
           }]
         }
         assert "expires" in decoded
+        assert "+" in decoded['expires']
