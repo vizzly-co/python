@@ -23,3 +23,9 @@ def sign_data_access_token(expiry_ttl_in_minutes, data_set_ids, secure_filters, 
   "dataSetIds": data_set_ids,
   "secureFilters": secure_filters
 }, expiry_ttl_in_minutes, private_key, timezone)
+
+def sign_query_engine_access_token(expiry_ttl_in_minutes, allow_data_preview_access, allow_database_schema_access, private_key, timezone=tz.tzlocal()):
+  return sign({
+    "allowDataPreviewAccess": allow_data_preview_access,
+    "allowDatabaseSchemaAccess": allow_database_schema_access
+}, expiry_ttl_in_minutes, private_key, timezone)
