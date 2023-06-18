@@ -73,3 +73,23 @@ class TestAuth(unittest.TestCase):
         }
         assert "expires" in decoded
         assert "+" in decoded['expires']
+
+  def test_sign_query_engine_access_token(self):
+    with open('private_key.pem', 'r') as f:
+      private_key = f.read()
+      token = auth.sign_query_engine_access_token(
+        expiry_ttl_in_minutes=20,
+        allow_data_preview_access=True,
+        allow_database_schema_access=True,
+        private_key=private_key
+      )
+
+      with open('public_key.pem', 'r') as f:
+        public_key = f.read()
+        decoded = jwt.decode(token, public_key, algorithms=['ES256'])
+
+        assert decoded["allowDataPreviewAccess"] == True
+        assert decoded["allowDatabaseSchemaAccess"] == True
+
+        assert "expires" in decoded
+        assert "+" in decoded['expires']
