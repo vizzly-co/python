@@ -1,1 +1,1 @@
-from vizzly.auth import sign_dashboard_access_token, sign_data_access_token
+from vizzly.auth import sign_dashboard_access_token, sign_data_access_token, sign_query_engine_access_token
