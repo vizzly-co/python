@@ -8,8 +8,7 @@ packages = [{include = "vizzly"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-PyJWT = "^2.6.0"
-cryptography = "^38.0.4"
+PyJWT = {extras = ["crypto"], version = "^2.8.0"}
 python-dateutil = "^2.8.2"
 
 
