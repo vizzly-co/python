@@ -23,11 +23,8 @@ c8XAMURwSA7iAY2QzmzJ4RQ6ZKp1UVkpLA==
 # Access token to permit dashboard configuration management
 dashboard_access_token = vizzly.sign_dashboard_access_token(
   expiry_ttl_in_minutes=60,
-  access_type='admin',
-  organisation_id='org_123',
-  dashboard_id='dsh_123',
-  user_reference='usr-1',
-  scope='read_write',
+  project_id='prj_123',
+  user_reference='usr-123',
   private_key=private_key
 )
 
