@@ -24,9 +24,8 @@ class TestAuth(unittest.TestCase):
       token = auth.sign_dashboard_access_token(
         expiry_ttl_in_minutes=20,
         access_type='admin',
-        organisation_id='org_123',
+        project_id='prj_123',
         user_reference='usr-123',
-        dashboard_id='dsh_432',
         scope="read",
         private_key=private_key
       )
@@ -36,10 +35,57 @@ class TestAuth(unittest.TestCase):
         decoded = jwt.decode(token, public_key, algorithms=['ES256'])
 
         assert decoded["accessType"] == "admin"
-        assert decoded["organisationId"] == "org_123"
-        assert decoded["dashboardId"] == "dsh_432"
+        assert decoded["projectId"] == "prj_123"
+        assert decoded["userReference"] == "usr-123"
+        assert decoded.get("parentDashboardIds") == None
+        assert decoded["scope"] == "read"
+        assert "expires" in decoded
+        assert "+" in decoded['expires']
+
+  def test_sign_dashboard_access_token_with_parent_dashboards(self):
+    with open('private_key.pem', 'r') as f:
+      private_key = f.read()
+      token = auth.sign_dashboard_access_token(
+        expiry_ttl_in_minutes=20,
+        access_type='admin',
+        project_id='prj_123',
+        user_reference='usr-123',
+        scope="read",
+        parent_dashboard_ids=["dsh_12345"],
+        private_key=private_key
+      )
+
+      with open('public_key.pem', 'r') as f:
+        public_key = f.read()
+        decoded = jwt.decode(token, public_key, algorithms=['ES256'])
+
+        assert decoded["accessType"] == "admin"
+        assert decoded["projectId"] == "prj_123"
         assert decoded["userReference"] == "usr-123"
         assert decoded["scope"] == "read"
+        assert decoded.get("parentDashboardIds") == ["dsh_12345"]
+        assert "expires" in decoded
+        assert "+" in decoded['expires']
+
+  def test_sign_dashboard_access_token_with_all_defaults(self):
+    with open('private_key.pem', 'r') as f:
+      private_key = f.read()
+      token = auth.sign_dashboard_access_token(
+        expiry_ttl_in_minutes=20,
+        project_id='prj_123',
+        user_reference='usr-123',
+        private_key=private_key
+      )
+
+      with open('public_key.pem', 'r') as f:
+        public_key = f.read()
+        decoded = jwt.decode(token, public_key, algorithms=['ES256'])
+
+        assert decoded["accessType"] == "standard"
+        assert decoded["projectId"] == "prj_123"
+        assert decoded["userReference"] == "usr-123"
+        assert decoded["scope"] == "read_write"
+        assert decoded.get("parentDashboardIds") == None
         assert "expires" in decoded
         assert "+" in decoded['expires']
 
