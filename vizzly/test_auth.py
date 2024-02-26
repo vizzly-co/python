@@ -109,6 +109,7 @@ class TestAuth(unittest.TestCase):
         public_key = f.read()
         decoded = jwt.decode(token, public_key, algorithms=['ES256'])
 
+        assert decoded["parameters"] == {}
         assert decoded["dataSetIds"] == "*"
         assert decoded["secureFilters"] == {
           "das_1": [{
@@ -119,6 +120,29 @@ class TestAuth(unittest.TestCase):
         }
         assert "expires" in decoded
         assert "+" in decoded['expires']
+
+  def test_sign_data_access_token_with_parameters(self):
+    with open('private_key.pem', 'r') as f:
+      private_key = f.read()
+      token = auth.sign_data_access_token(
+        expiry_ttl_in_minutes=20,
+        data_set_ids="*",
+        secure_filters={
+          "das_1": [{
+            "field": "fie_1",
+            "op": "=",
+            "value": "usr_12345"
+          }]
+        },
+        parameters={"something": "secret"},
+        private_key=private_key
+      )
+
+      with open('public_key.pem', 'r') as f:
+        public_key = f.read()
+        decoded = jwt.decode(token, public_key, algorithms=['ES256'])
+
+        assert decoded["parameters"] == {"something": "secret"}
 
   def test_sign_query_engine_access_token(self):
     with open('private_key.pem', 'r') as f:
