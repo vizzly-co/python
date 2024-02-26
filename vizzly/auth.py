@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 from dateutil import tz
 from datetime import timezone
 
-def sign(payload, expiry_ttl_in_minutes, private_key, timezone):
+def sign(payload, expiry_ttl_in_minutes, private_key, timezone=tz.tzlocal()):
   now = datetime.now(timezone)
 
   payload["expires"] = (now + timedelta(expiry_ttl_in_minutes)).isoformat()
@@ -22,10 +22,11 @@ def sign_dashboard_access_token(expiry_ttl_in_minutes, project_id, user_referenc
 
   return sign(params, expiry_ttl_in_minutes, private_key, timezone)
 
-def sign_data_access_token(expiry_ttl_in_minutes, data_set_ids, secure_filters, private_key, timezone=tz.tzlocal()):
+def sign_data_access_token(expiry_ttl_in_minutes, data_set_ids, secure_filters, private_key, parameters={}, timezone=tz.tzlocal()):
   return sign({
   "dataSetIds": data_set_ids,
-  "secureFilters": secure_filters
+  "secureFilters": secure_filters,
+  "parameters": parameters
 }, expiry_ttl_in_minutes, private_key, timezone)
 
 def sign_query_engine_access_token(expiry_ttl_in_minutes, allow_data_preview_access, allow_database_schema_access, private_key, timezone=tz.tzlocal()):
